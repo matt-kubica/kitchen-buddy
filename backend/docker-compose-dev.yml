@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  server:
+    build: ./server
+    command: npm run dev
+    container_name: kitchen-buddy-server
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - ./server:/usr/src/app
+
+
+  mongo:
+    image: mongo
+    container_name: kitchen-buddy-mongo
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - default:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: kitchen-buddy-mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+
+
+networks:
+  default:
+    name: kitchen-buddy-network
+
+volumes:
+  default:
+    name: kitchen-buddy-volume

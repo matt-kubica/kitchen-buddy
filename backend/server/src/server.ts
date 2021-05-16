@@ -1,18 +1,22 @@
-import { ingredients, Ingredient } from './types';
+import { ingredientValidations, validate, Ingredient } from './types';
 
-import express  from 'express';
-import { Collection, MongoClient, MongoError } from "mongodb";
+import express, { Request, Response }  from 'express';
+import { Collection, Db, MongoClient } from 'mongodb';
 
 
 const PORT = process.env.SERVER_PORT || 8000;
 const DB_URI = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017`
-const MONGO_OPTIONS = { poolSize: 10, bufferMaxEntries: 0,  useNewUrlParser: true,useUnifiedTopology: true }
+const MONGO_OPTIONS = { poolSize: 10, bufferMaxEntries: 0,  useNewUrlParser: true, useUnifiedTopology: true }
 const MAIN_COLLECTION = 'ingredients';
 const DB_NAME = 'kitchen-buddy-db';
 
 
 const app = express();
 const mongo = MongoClient;
+
+// express config
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 // TODO: endpoints to create
@@ -24,41 +28,47 @@ const mongo = MongoClient;
 // - domain.com/api/field/[?category=<category-type>[&location=<location-type>[&confection=<confection-type>]]]
 
 
-mongo.connect(DB_URI, MONGO_OPTIONS,(err: MongoError, client: MongoClient) => {
-    if (err) throw err;
 
-    const db = client.db(DB_NAME);
-    db.listCollections({'name': MAIN_COLLECTION}).toArray()
-        .then(res => res.length)
-        .then(len => {
-            if (len === 0) {
-                db.createCollection(MAIN_COLLECTION, (err: MongoError, collection: Collection) => {
-                    if (err) throw err;
-                    console.log(`Collection '${MAIN_COLLECTION}' created!`);
-                });
-            } else {
-                console.log(`Collection '${MAIN_COLLECTION}' already exist...`);
-            }
-        });
-});
-
-app.get('/', (req, res) => {
+app.get('/hello', (req: Request, res: Response) => {
     console.log(`Request from: ${req.hostname}`);
-    res.send('Hello from server!');
+    res.send({ message: 'Hello from kitchen-buddy-api' });
 });
 
-
-// app.get('/put-dummy-ingredients', (req, res) => {
-//     console.log(db);
-//     db.collection('ingredients').insertMany(ingredients, (err: MongoError, res: InsertWriteOpResult<WithId<any>>) => {
-//         if (err) throw err;
-//         console.log('Documents inserted!');
-//     });
-// })
-
-
-app.listen(PORT, () => {
-    console.log('App is listening...');
-    console.log('Database URI: ', DB_URI);
+app.get('/ingredients', (req: Request, res: Response) => {
+    const db: Db = req.app.locals.db;
+    db.collection(MAIN_COLLECTION).find().toArray().then((array: Ingredient[]) => {
+        const names: string = array.map((ingredient: Ingredient) => ingredient.name).toString();
+        console.log(`Selected ingredients: [${names}]`);
+        res.send(array);
+    }).catch(console.error);
 });
+
+app.post('/ingredients', validate(ingredientValidations), (req: Request, res: Response) => {
+    const db: Db = req.app.locals.db;
+    const ingredient: Ingredient = req.body;
+
+    db.collection(MAIN_COLLECTION).insertOne(ingredient).then(() =>{
+        console.log(`Ingredient '${ingredient.name}' inserted`);
+        res.send(ingredient);
+    }).catch(console.error);
+});
+
+mongo.connect(DB_URI, MONGO_OPTIONS).then((client: MongoClient) => {
+    const db: Db = client.db(DB_NAME);
+    db.listCollections({'name': MAIN_COLLECTION}).toArray().then(res => res.length).then(len => {
+        if (len === 0) {
+            db.createCollection(MAIN_COLLECTION).then((collection: Collection) => {
+                console.log(`Collection '${MAIN_COLLECTION}' created!`);
+            }).catch(console.error);
+        } else {
+            console.log(`Collection '${MAIN_COLLECTION}' already exist...`);
+        }
+    });
+
+    app.locals.db = db;
+    app.listen(PORT, () => {
+        console.log(`App is listening on port ${PORT}...`);
+        console.log(`Configured database connection...: ${DB_URI}`);
+    });
+}).catch(console.error);
 

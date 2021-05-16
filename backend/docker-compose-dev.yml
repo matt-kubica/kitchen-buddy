@@ -18,19 +18,12 @@ services:
     image: mongo
     container_name: kitchen-buddy-mongo
     restart: always
+    ports:
+      - 27017:27017
     env_file:
       - .env
     volumes:
       - default:/data/db
-
-  mongo-express:
-    image: mongo-express
-    container_name: kitchen-buddy-mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    env_file:
-      - .env
 
 
 networks:

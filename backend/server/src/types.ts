@@ -1,7 +1,7 @@
 
 export type Category = "fruit" | "vegetable" | "dairy" | "fish" | "meat" | "liquid";
 
-export type Location = "fridge" | "freezer" | "pantry";
+export type Placement = "fridge" | "freezer" | "pantry";
 
 export type Confection = "fresh" | "canned" | "frozen" | "cured";
 
@@ -12,11 +12,11 @@ export type RipenessStatus = {
     date: Date;
 }
 
-export type Indegrient = {
+export type Ingredient = {
     name: string;
     brand: string | null;
     category: Category | null;
-    location: Location | null;
+    location: Placement | null;
     confection: Confection | null;
     expirationDate: Date | null;
     ripenessStatus: RipenessStatus | null;
@@ -25,9 +25,10 @@ export type Indegrient = {
     barcode: string | null;
 }
 
-export const indegrients: Indegrient[] = [
+// dummy objects
+export const ingredients: Ingredient[] = [
     {
-        name: 'Toamto',
+        name: 'Tomato',
         brand: 'Your Vegetables Inc.',
         category: 'vegetable',
         location: 'pantry',
@@ -71,6 +72,6 @@ export const indegrients: Indegrient[] = [
         frozen: false,
         barcode: null,
     },
-
 ]
+
 

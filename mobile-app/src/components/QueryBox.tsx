@@ -1,87 +1,10 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext, useState } from 'react';
 import { default as Picker } from 'react-native-picker-select';
 import { Category, dummyIngredients, Ingredient, Placement } from '../types';
 import { AppContext } from '../context';
+import { styles } from "../styles";
 
-type QueryType =
-  | 'expiring-in'
-  | 'missing-data'
-  | 'added-within'
-  | 'same-placement'
-  | 'same-category';
-type QueryTypeItem = { label: string; value: QueryType };
-const queryTypeItems: QueryTypeItem[] = [
-  { label: 'expiring in', value: 'expiring-in' },
-  { label: 'missing data', value: 'missing-data' },
-  { label: 'added within', value: 'added-within' },
-  { label: 'same placement', value: 'same-placement' },
-  { label: 'same category', value: 'same-category' },
-];
-
-type ShortPeriod = '1d' | '3d' | '7d' | '14d' | '28d';
-type ShortPeriodItem = { label: string; value: ShortPeriod };
-const shortPeriodItems: ShortPeriodItem[] = [
-  { label: '1 day', value: '1d' },
-  { label: '3 days', value: '3d' },
-  { label: '7 days', value: '7d' },
-  { label: '14 days', value: '14d' },
-  { label: '28 days', value: '28d' },
-];
-
-const periodToTime = (period: ShortPeriod): number => {
-  const millisecondsInDay = 24 * 60 * 60 * 1000;
-  switch (period) {
-    case '1d':
-      return millisecondsInDay;
-    case '3d':
-      return 3 * millisecondsInDay;
-    case '7d':
-      return 7 * millisecondsInDay;
-    case '14d':
-      return 14 * millisecondsInDay;
-    case '28d':
-      return 28 * millisecondsInDay;
-  }
-};
-
-type MissingData =
-  | 'any'
-  | 'brand'
-  | 'category'
-  | 'placement'
-  | 'confection'
-  | 'expirationDate'
-  | 'ripenessStatus'
-  | 'barcode';
-type MissingDataItem = { label: string; value: MissingData };
-const missingDataItems: MissingDataItem[] = [
-  { label: 'brand', value: 'brand' },
-  { label: 'category', value: 'category' },
-  { label: 'placement', value: 'placement' },
-  { label: 'confection', value: 'confection' },
-  { label: 'expiration date', value: 'expirationDate' },
-  { label: 'ripeness status', value: 'ripenessStatus' },
-  { label: 'barcode', value: 'barcode' },
-];
-
-type InnerPlacement = Placement | 'any';
-type PlacementItem = { label: string; value: InnerPlacement };
-const placementItems: PlacementItem[] = [
-  { label: 'fridge', value: 'fridge' },
-  { label: 'freezer', value: 'freezer' },
-  { label: 'pantry', value: 'pantry' },
-];
-
-type InnerCategory = Category | 'any';
-type CategoryItem = { label: string; value: InnerCategory };
-const categoryItems: CategoryItem[] = [
-  { label: 'fruit', value: 'fruit' },
-  { label: 'vegetable', value: 'vegetable' },
-  { label: 'dairy', value: 'dairy' },
-  { label: 'meat', value: 'meat' },
-  { label: 'liquid', value: 'liquid' },
-];
 
 export const QueryBox = ({
   innerIngredients,
@@ -174,8 +97,8 @@ export const QueryBox = ({
   }
 
   return (
-    <View style={{ flexDirection: 'row', marginBottom: 6, height: 34 }}>
-      <View style={{ flex: 4 }}>
+    <View style={innerStyles.container}>
+      <View style={{flex:4, marginRight: 8}} >
         <Picker
           onValueChange={(value) => setQueryType(value)}
           items={queryTypeItems}
@@ -184,7 +107,7 @@ export const QueryBox = ({
           placeholder={{ label: 'category...', value: null }}
         />
       </View>
-      <View style={{ flex: 4 }}>
+      <View style={{flex:4, marginRight: 4}}>
         {queryType == 'expiring-in' ? (
           <Picker
             onValueChange={(value) => setExpireIn(value)}
@@ -229,40 +152,116 @@ export const QueryBox = ({
           <View style={innerStyles.placeholder} />
         )}
       </View>
-      <View style={innerStyles.button}>
-        <Button title={'✅'} onPress={() => createQuery()} />
-      </View>
 
-      <View style={innerStyles.button}>
-        <Button
-          title={'❌'}
-          onPress={() => discardQuery()}
-        />
-      </View>
+      <TouchableOpacity style={innerStyles.button} onPress={() => createQuery()}>
+        <Text style={{ fontSize: 32 }}>✅</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={innerStyles.button} onPress={() => discardQuery()}>
+        <Text style={{ fontSize: 32 }}>❌</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+type QueryType =
+  | 'expiring-in'
+  | 'missing-data'
+  | 'added-within'
+  | 'same-placement'
+  | 'same-category';
+type QueryTypeItem = { label: string; value: QueryType };
+const queryTypeItems: QueryTypeItem[] = [
+  { label: 'expiring in', value: 'expiring-in' },
+  { label: 'missing data', value: 'missing-data' },
+  { label: 'added within', value: 'added-within' },
+  { label: 'same placement', value: 'same-placement' },
+  { label: 'same category', value: 'same-category' },
+];
+
+type ShortPeriod = '1d' | '3d' | '7d' | '14d' | '28d';
+type ShortPeriodItem = { label: string; value: ShortPeriod };
+const shortPeriodItems: ShortPeriodItem[] = [
+  { label: '1 day', value: '1d' },
+  { label: '3 days', value: '3d' },
+  { label: '7 days', value: '7d' },
+  { label: '14 days', value: '14d' },
+  { label: '28 days', value: '28d' },
+];
+
+const periodToTime = (period: ShortPeriod): number => {
+  const millisecondsInDay = 24 * 60 * 60 * 1000;
+  switch (period) {
+    case '1d':
+      return millisecondsInDay;
+    case '3d':
+      return 3 * millisecondsInDay;
+    case '7d':
+      return 7 * millisecondsInDay;
+    case '14d':
+      return 14 * millisecondsInDay;
+    case '28d':
+      return 28 * millisecondsInDay;
+  }
+};
+
+type MissingData =
+  | 'any'
+  | 'brand'
+  | 'category'
+  | 'placement'
+  | 'confection'
+  | 'expirationDate'
+  | 'ripenessStatus'
+  | 'barcode';
+type MissingDataItem = { label: string; value: MissingData };
+const missingDataItems: MissingDataItem[] = [
+  { label: 'brand', value: 'brand' },
+  { label: 'category', value: 'category' },
+  { label: 'placement', value: 'placement' },
+  { label: 'confection', value: 'confection' },
+  { label: 'expiration date', value: 'expirationDate' },
+  { label: 'ripeness status', value: 'ripenessStatus' },
+  { label: 'barcode', value: 'barcode' },
+];
+
+type InnerPlacement = Placement | 'any';
+type PlacementItem = { label: string; value: InnerPlacement };
+const placementItems: PlacementItem[] = [
+  { label: 'fridge', value: 'fridge' },
+  { label: 'freezer', value: 'freezer' },
+  { label: 'pantry', value: 'pantry' },
+];
+
+type InnerCategory = Category | 'any';
+type CategoryItem = { label: string; value: InnerCategory };
+const categoryItems: CategoryItem[] = [
+  { label: 'fruit', value: 'fruit' },
+  { label: 'vegetable', value: 'vegetable' },
+  { label: 'dairy', value: 'dairy' },
+  { label: 'meat', value: 'meat' },
+  { label: 'liquid', value: 'liquid' },
+];
 
 const innerStyles = StyleSheet.create({
   placeholder: {
     height: '100%',
     paddingHorizontal: 4,
-    borderRadius: 2,
+    borderRadius: 4,
     backgroundColor: 'white',
-    width: 100,
     justifyContent: 'center',
   },
-  button: { width: 10, flex: 1, backgroundColor: 'white', borderRadius: 2 },
+  button: { flex: 1, marginTop: 'auto', marginBottom: 'auto', alignItems: 'center', marginHorizontal: 4 },
+  container: { flexDirection: 'row', marginBottom: 8, height: styles.input.height, justifyContent: 'center' }
 });
 
 const innerPickerStyle = StyleSheet.create({
   inputIOS: {
     height: '100%',
     paddingHorizontal: 4,
-    borderRadius: 2,
+    borderRadius: 4,
     backgroundColor: 'white',
-    width: 100,
     justifyContent: 'center',
-    fontSize: 16,
+    fontSize: styles.input.fontSize,
   },
 });

@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context';
-import { FlatList, Text, TextInput, View } from 'react-native';
+import { FlatList, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from '../styles';
 import { Ingredient } from '../types';
 import { Item } from './Item';
 import { QueryBox } from './QueryBox';
+import { StackScreenProps } from "@react-navigation/stack";
 
-export const QueryScreen = () => {
+
+export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
   const [searchedName, setSearchedName] = useState<string>('');
   const { clearIngredients, ingredients } = useContext(AppContext);
 
@@ -16,8 +18,6 @@ export const QueryScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Query Screen</Text>
-
       <QueryBox
         innerIngredients={innerIngredients}
         setInnerIngredients={setInnerIngredients}
@@ -36,12 +36,15 @@ export const QueryScreen = () => {
         keyExtractor={(item: Ingredient) => `${item.id}`}
         renderItem={({ item }) =>
           item.name.toUpperCase().startsWith(searchedName.toUpperCase()) ? (
-            <Item ingredient={item} />
+            <TouchableOpacity onPress={() => navigation.navigate('ItemDetails', { ingredient: item })}>
+              <Item ingredient={item} />
+            </TouchableOpacity>
+
           ) : (
             <View />
           )
         }
-        style={{ width: '100%', marginTop: 24 }}
+        style={{ width: '100%', marginTop: 16 }}
       />
       {/*<Button title={'Clear Ingredients'} onPress={clearIngredients} />*/}
     </View>

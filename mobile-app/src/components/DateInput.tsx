@@ -39,7 +39,7 @@ export const DateInput = ({
               minimumDate={new Date()}
             />
             <View style={dateInputStyles.button}>
-              <Button title={'x'} onPress={() => discardDate()} color={'red'} />
+              <Button title={'❌'} onPress={() => discardDate()} />
             </View>
           </View>
         ) : (
@@ -53,10 +53,9 @@ export const DateInput = ({
 const dateInputStyles = StyleSheet.create({
   picker: { width: '100%', marginTop: 'auto', marginBottom: 'auto' },
   button: {
-    width: 25,
     marginTop: 'auto',
     marginBottom: 'auto',
-    marginRight: 0,
+    marginRight: 4,
     marginLeft: 'auto',
   },
   placeholder: {
@@ -65,5 +64,6 @@ const dateInputStyles = StyleSheet.create({
     marginLeft: 0,
     flex: 3,
     color: '#c4c4c4',
+    fontSize: styles.input.fontSize,
   },
 });

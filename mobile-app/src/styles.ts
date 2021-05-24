@@ -3,7 +3,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 48,
+    marginTop: 4,
     flex: 1,
     backgroundColor: Colors.lighter,
     justifyContent: 'center',
@@ -13,20 +13,20 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
-    height: 32,
+    height: 42,
+    fontSize: 20,
     paddingHorizontal: 4,
-    borderRadius: 2,
+    borderRadius: 6,
     backgroundColor: 'white',
-    marginVertical: 6,
+    marginVertical: 4,
     width: '80%',
   },
   searchBar: {
-    height: 36,
-    fontSize: 24,
+    height: 42,
+    fontSize: 20,
     paddingHorizontal: 4,
-    borderRadius: 2,
+    borderRadius: 6,
     backgroundColor: 'white',
-    marginVertical: 6,
     width: '100%',
   },
   item: {
@@ -34,8 +34,8 @@ export const styles = StyleSheet.create({
     height: 'auto',
     backgroundColor: 'white',
     width: '100%',
-    marginVertical: 4,
-    borderRadius: 6,
+    marginVertical: 8,
+    borderRadius: 10,
     padding: 12,
   },
   title: {
@@ -46,6 +46,18 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  submitButton: {
+    marginTop: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 24,
+    elevation: 3,
+    backgroundColor: '#d9d9db',
+    width: '80%',
+  },
+  submitButtonText: { color: '#007aff', fontWeight: 'bold', fontSize: 20 }
 });
 
 export const pickerStyle = StyleSheet.create({

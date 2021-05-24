@@ -1,35 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Button, Keyboard, SafeAreaView, Text, TextInput } from 'react-native';
+import { Button, Keyboard, Pressable, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
 import { Category, Confection, Ingredient, Placement } from '../types';
 import { default as Picker } from 'react-native-picker-select';
 import { DateInput } from './DateInput';
 
-type CategoryItem = { label: string; value: Category };
-const categoryItems: CategoryItem[] = [
-  { label: 'fruit', value: 'fruit' },
-  { label: 'vegetable', value: 'vegetable' },
-  { label: 'dairy', value: 'dairy' },
-  { label: 'fish', value: 'fish' },
-  { label: 'meat', value: 'meat' },
-  { label: 'liquid', value: 'liquid' },
-];
 
-type PlacementItem = { label: string; value: Placement };
-const placementItems: PlacementItem[] = [
-  { label: 'fridge', value: 'fridge' },
-  { label: 'freezer', value: 'freezer' },
-  { label: 'pantry', value: 'pantry' },
-];
-
-type ConfectionItem = { label: string; value: Confection };
-const confectionItems: ConfectionItem[] = [
-  { label: 'fresh', value: 'fresh' },
-  { label: 'canned', value: 'canned' },
-  { label: 'frozen', value: 'frozen' },
-  { label: 'cured', value: 'cured' },
-];
 
 export const InputScreen = () => {
   const { addIngredient, ingredients } = useContext(AppContext);
@@ -76,7 +53,6 @@ export const InputScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Input Screen</Text>
       <TextInput
         onChangeText={setIngredientName}
         value={ingredientName}
@@ -115,7 +91,35 @@ export const InputScreen = () => {
         setDate={setExpirationDate}
         placeholder={'expiration date...'}
       />
-      <Button title={'Add'} onPress={submit} />
+      <TouchableOpacity onPress={submit} style={styles.submitButton}
+      >
+        <Text style={styles.submitButtonText}>ADD</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
+
+type CategoryItem = { label: string; value: Category };
+const categoryItems: CategoryItem[] = [
+  { label: 'fruit', value: 'fruit' },
+  { label: 'vegetable', value: 'vegetable' },
+  { label: 'dairy', value: 'dairy' },
+  { label: 'fish', value: 'fish' },
+  { label: 'meat', value: 'meat' },
+  { label: 'liquid', value: 'liquid' },
+];
+
+type PlacementItem = { label: string; value: Placement };
+const placementItems: PlacementItem[] = [
+  { label: 'fridge', value: 'fridge' },
+  { label: 'freezer', value: 'freezer' },
+  { label: 'pantry', value: 'pantry' },
+];
+
+type ConfectionItem = { label: string; value: Confection };
+const confectionItems: ConfectionItem[] = [
+  { label: 'fresh', value: 'fresh' },
+  { label: 'canned', value: 'canned' },
+  { label: 'frozen', value: 'frozen' },
+  { label: 'cured', value: 'cured' },
+];

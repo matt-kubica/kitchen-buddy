@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { dummyIngredients, Ingredient } from './types';
-import { AppContext } from './context';
-import { InputScreen } from './components/InputScreen';
-import { QueryScreen } from './components/QueryScreen';
+import { dummyIngredients, Ingredient } from '../types';
+import { AppContext } from '../context';
+import { InputScreen } from './InputScreen';
+import { QueryScreen } from './QueryScreen';
 import { Ionicons } from '@expo/vector-icons';
-import { QueryScreenStack } from './components/QueryScreenStack';
-import { InputScreenStack } from './components/InputScreenStack';
+import { QueryScreenStack } from './QueryScreenStack';
+import { InputScreenStack } from './InputScreenStack';
 import { LogBox } from 'react-native';
 import { registerRootComponent } from "expo";
 

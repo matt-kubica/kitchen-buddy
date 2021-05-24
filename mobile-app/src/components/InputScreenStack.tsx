@@ -1,7 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { QueryScreen } from './QueryScreen';
-import { ItemDetails } from './ItemDetails';
 import { InputScreen } from './InputScreen';
 
 export const InputScreenStack = () => {

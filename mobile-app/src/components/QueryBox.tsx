@@ -1,15 +1,7 @@
-import {
-  Button,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, { useContext, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import { default as Picker } from 'react-native-picker-select';
-import { Category, dummyIngredients, Ingredient, Placement } from '../types';
-import { AppContext } from '../context';
+import { Ingredient } from '../types';
 import { styles } from '../styles';
 import {
   categoryItems,

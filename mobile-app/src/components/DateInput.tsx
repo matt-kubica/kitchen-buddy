@@ -12,10 +12,13 @@ export const DateInput = ({
   setDate: (arg: Date | null) => void;
   placeholder: string;
 }) => {
-  const [pickerVisibility, setPickerVisibility] = useState<boolean>(false);
+  const [pickerVisibility, setPickerVisibility] = useState<boolean>(
+    date !== null
+  );
 
   const onChange = (event: Event, selectedDate?: Date | undefined) => {
     const currentDate = selectedDate || date;
+    console.log(currentDate);
     setDate(currentDate);
   };
 
@@ -25,7 +28,12 @@ export const DateInput = ({
   };
 
   return (
-    <Pressable onPress={() => setPickerVisibility(true)}>
+    <Pressable
+      onPress={() => {
+        setPickerVisibility(true);
+        setDate(new Date());
+      }}
+    >
       <View style={{ flexDirection: 'row', ...styles.input }}>
         {pickerVisibility ? (
           <View style={{ flexDirection: 'row', width: '100%' }}>

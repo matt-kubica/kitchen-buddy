@@ -5,10 +5,9 @@ import { dummyIngredients, Ingredient } from './src/types';
 import { AppContext } from './src/context';
 import { InputScreen } from './src/components/InputScreen';
 import { QueryScreen } from './src/components/QueryScreen';
-import { Ionicons } from "@expo/vector-icons";
-import { QueryScreenStack } from "./src/components/QueryScreenStack";
-import { InputScreenStack } from "./src/components/InputScreenStack";
-
+import { Ionicons } from '@expo/vector-icons';
+import { QueryScreenStack } from './src/components/QueryScreenStack';
+import { InputScreenStack } from './src/components/InputScreenStack';
 
 const App = () => {
   const [ingredients, setIngredients] =
@@ -20,6 +19,10 @@ const App = () => {
 
   const handleClearIngredients = () => setIngredients([]);
 
+  const handleSetIngredients = (newIngredients: Ingredient[]) => {
+    setIngredients(newIngredients);
+  };
+
   const Tab = createBottomTabNavigator();
 
   return (
@@ -27,12 +30,13 @@ const App = () => {
       value={{
         addIngredient: handleAddIngredient,
         clearIngredients: handleClearIngredients,
+        setIngredients: handleSetIngredients,
         ingredients: ingredients,
       }}
     >
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({route}) => ({
+          screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
               if (route.name === 'InputScreen') {
@@ -46,7 +50,7 @@ const App = () => {
               }
               // @ts-ignore
               return <Ionicons name={iconName} size={size} color={color} />;
-            }
+            },
           })}
         >
           <Tab.Screen name='InputScreen' component={InputScreenStack} />

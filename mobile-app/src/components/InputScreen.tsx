@@ -1,12 +1,24 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Button, Keyboard, Pressable, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  Button,
+  Keyboard,
+  Pressable,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
 import { Category, Confection, Ingredient, Placement } from '../types';
 import { default as Picker } from 'react-native-picker-select';
 import { DateInput } from './DateInput';
-
-
+import {
+  categoryItems,
+  confectionItems,
+  placementItems,
+} from '../picker-items/ingredient';
 
 export const InputScreen = () => {
   const { addIngredient, ingredients } = useContext(AppContext);
@@ -30,18 +42,14 @@ export const InputScreen = () => {
   const submit = () => {
     let id: number = 1;
     if (ingredients?.length) {
-      id = ingredients[ingredients.length - 1].id + 1
+      id = ingredients[ingredients.length - 1].id + 1;
     }
 
     if (addIngredient !== undefined) {
       if (ingredientName === '')
-        Alert.alert(
-          'Name not provided',
-          '',
-          [{ text: 'OK' }]
-        );
+        Alert.alert('Name not provided', '', [{ text: 'OK' }]);
       else {
-        addIngredient({
+        const ingredient = {
           id: id,
           name: ingredientName,
           brand: brandName ? brandName : null,
@@ -53,7 +61,9 @@ export const InputScreen = () => {
           open: false,
           frozen: false,
           barcode: null,
-        });
+        };
+        console.log(ingredient);
+        addIngredient(ingredient);
         setStatesToDefault();
         Keyboard.dismiss();
       }
@@ -106,28 +116,3 @@ export const InputScreen = () => {
     </SafeAreaView>
   );
 };
-
-type CategoryItem = { label: string; value: Category };
-const categoryItems: CategoryItem[] = [
-  { label: 'fruit', value: 'fruit' },
-  { label: 'vegetable', value: 'vegetable' },
-  { label: 'dairy', value: 'dairy' },
-  { label: 'fish', value: 'fish' },
-  { label: 'meat', value: 'meat' },
-  { label: 'liquid', value: 'liquid' },
-];
-
-type PlacementItem = { label: string; value: Placement };
-const placementItems: PlacementItem[] = [
-  { label: 'fridge', value: 'fridge' },
-  { label: 'freezer', value: 'freezer' },
-  { label: 'pantry', value: 'pantry' },
-];
-
-type ConfectionItem = { label: string; value: Confection };
-const confectionItems: ConfectionItem[] = [
-  { label: 'fresh', value: 'fresh' },
-  { label: 'canned', value: 'canned' },
-  { label: 'frozen', value: 'frozen' },
-  { label: 'cured', value: 'cured' },
-];

@@ -1,6 +1,7 @@
 export type AppContextProps = {
   addIngredient: (ingredient: Ingredient) => void;
   clearIngredients: () => void;
+  setIngredients: (newIngredients: Ingredient[]) => void;
   ingredients: Ingredient[];
 };
 

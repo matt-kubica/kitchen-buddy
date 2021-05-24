@@ -1,10 +1,28 @@
-import { Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useContext, useState } from 'react';
 import { default as Picker } from 'react-native-picker-select';
 import { Category, dummyIngredients, Ingredient, Placement } from '../types';
 import { AppContext } from '../context';
-import { styles } from "../styles";
-
+import { styles } from '../styles';
+import {
+  categoryItems,
+  InnerCategory,
+  InnerPlacement,
+  MissingData,
+  missingDataItems,
+  placementItems,
+  QueryType,
+  queryTypeItems,
+  ShortPeriod,
+  shortPeriodItems,
+} from '../picker-items/query';
 
 export const QueryBox = ({
   ingredients,
@@ -20,9 +38,7 @@ export const QueryBox = ({
   const [placement, setPlacement] = useState<InnerPlacement | null>(null);
   const [category, setCategory] = useState<InnerCategory | null>(null);
 
-
   const createQuery = () => {
-
     switch (queryType) {
       case 'expiring-in':
         if (expireIn !== null) {
@@ -54,11 +70,11 @@ export const QueryBox = ({
           );
         }
         break;
-      case "added-within":
+      case 'added-within':
         // TODO: add 'added' field to ingredient object, for now, just pass all ingredients
-        setIngredients(ingredients)
+        setIngredients(ingredients);
         break;
-      case "same-category":
+      case 'same-category':
         if (category !== null) {
           setIngredients(
             ingredients.filter((ingredient: Ingredient) => {
@@ -70,7 +86,7 @@ export const QueryBox = ({
           );
         }
         break;
-      case "same-placement":
+      case 'same-placement':
         if (placement !== null) {
           setIngredients(
             ingredients.filter((ingredient: Ingredient) => {
@@ -93,11 +109,11 @@ export const QueryBox = ({
     setAddedWithin(null);
     setPlacement(null);
     setCategory(null);
-  }
+  };
 
   return (
     <View style={innerStyles.container}>
-      <View style={{flex:4, marginRight: 8}} >
+      <View style={{ flex: 4, marginRight: 8 }}>
         <Picker
           onValueChange={(value) => setQueryType(value)}
           items={queryTypeItems}
@@ -106,7 +122,7 @@ export const QueryBox = ({
           placeholder={{ label: 'category...', value: null }}
         />
       </View>
-      <View style={{flex:4, marginRight: 4}}>
+      <View style={{ flex: 4, marginRight: 4 }}>
         {queryType == 'expiring-in' ? (
           <Picker
             onValueChange={(value) => setExpireIn(value)}
@@ -152,41 +168,22 @@ export const QueryBox = ({
         )}
       </View>
 
-      <TouchableOpacity style={innerStyles.button} onPress={() => createQuery()}>
+      <TouchableOpacity
+        style={innerStyles.button}
+        onPress={() => createQuery()}
+      >
         <Text style={{ fontSize: 32 }}>✅</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={innerStyles.button} onPress={() => discardQuery()}>
+      <TouchableOpacity
+        style={innerStyles.button}
+        onPress={() => discardQuery()}
+      >
         <Text style={{ fontSize: 32 }}>❌</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-type QueryType =
-  | 'expiring-in'
-  | 'missing-data'
-  | 'added-within'
-  | 'same-placement'
-  | 'same-category';
-type QueryTypeItem = { label: string; value: QueryType };
-const queryTypeItems: QueryTypeItem[] = [
-  { label: 'expiring in', value: 'expiring-in' },
-  { label: 'missing data', value: 'missing-data' },
-  { label: 'added within', value: 'added-within' },
-  { label: 'same placement', value: 'same-placement' },
-  { label: 'same category', value: 'same-category' },
-];
-
-type ShortPeriod = '1d' | '3d' | '7d' | '14d' | '28d';
-type ShortPeriodItem = { label: string; value: ShortPeriod };
-const shortPeriodItems: ShortPeriodItem[] = [
-  { label: '1 day', value: '1d' },
-  { label: '3 days', value: '3d' },
-  { label: '7 days', value: '7d' },
-  { label: '14 days', value: '14d' },
-  { label: '28 days', value: '28d' },
-];
 
 const periodToTime = (period: ShortPeriod): number => {
   const millisecondsInDay = 24 * 60 * 60 * 1000;
@@ -204,44 +201,6 @@ const periodToTime = (period: ShortPeriod): number => {
   }
 };
 
-type MissingData =
-  | 'any'
-  | 'brand'
-  | 'category'
-  | 'placement'
-  | 'confection'
-  | 'expirationDate'
-  | 'ripenessStatus'
-  | 'barcode';
-type MissingDataItem = { label: string; value: MissingData };
-const missingDataItems: MissingDataItem[] = [
-  { label: 'brand', value: 'brand' },
-  { label: 'category', value: 'category' },
-  { label: 'placement', value: 'placement' },
-  { label: 'confection', value: 'confection' },
-  { label: 'expiration date', value: 'expirationDate' },
-  { label: 'ripeness status', value: 'ripenessStatus' },
-  { label: 'barcode', value: 'barcode' },
-];
-
-type InnerPlacement = Placement | 'any';
-type PlacementItem = { label: string; value: InnerPlacement };
-const placementItems: PlacementItem[] = [
-  { label: 'fridge', value: 'fridge' },
-  { label: 'freezer', value: 'freezer' },
-  { label: 'pantry', value: 'pantry' },
-];
-
-type InnerCategory = Category | 'any';
-type CategoryItem = { label: string; value: InnerCategory };
-const categoryItems: CategoryItem[] = [
-  { label: 'fruit', value: 'fruit' },
-  { label: 'vegetable', value: 'vegetable' },
-  { label: 'dairy', value: 'dairy' },
-  { label: 'meat', value: 'meat' },
-  { label: 'liquid', value: 'liquid' },
-];
-
 const innerStyles = StyleSheet.create({
   placeholder: {
     height: '100%',
@@ -250,8 +209,19 @@ const innerStyles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
   },
-  button: { flex: 1, marginTop: 'auto', marginBottom: 'auto', alignItems: 'center', marginHorizontal: 4 },
-  container: { flexDirection: 'row', marginBottom: 8, height: styles.input.height, justifyContent: 'center' }
+  button: {
+    flex: 1,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    alignItems: 'center',
+    marginHorizontal: 4,
+  },
+  container: {
+    flexDirection: 'row',
+    marginBottom: 8,
+    height: styles.input.height,
+    justifyContent: 'center',
+  },
 });
 
 const innerPickerStyle = StyleSheet.create({

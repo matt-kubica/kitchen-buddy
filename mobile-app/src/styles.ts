@@ -57,7 +57,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#d9d9db',
     width: '80%',
   },
-  submitButtonText: { color: '#007aff', fontWeight: 'bold', fontSize: 20 }
+  submitButtonText: { color: '#007aff', fontWeight: 'bold', fontSize: 20 },
+  deleteAllButton: {
+    marginTop: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 24,
+    elevation: 3,
+    backgroundColor: '#d9d9db',
+    width: '80%',
+  },
+  deleteAllButtonText: { color: '#ff453a', fontWeight: 'bold', fontSize: 20 },
 });
 
 export const pickerStyle = StyleSheet.create({

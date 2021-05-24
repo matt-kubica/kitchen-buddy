@@ -7,11 +7,11 @@ import { styles } from "../styles";
 
 
 export const QueryBox = ({
-  innerIngredients,
-  setInnerIngredients,
+  ingredients,
+  setIngredients,
 }: {
-  innerIngredients: Ingredient[];
-  setInnerIngredients: (arg: Ingredient[]) => void;
+  ingredients: Ingredient[];
+  setIngredients: (arg: Ingredient[]) => void;
 }) => {
   const [queryType, setQueryType] = useState<QueryType | null>(null);
   const [expireIn, setExpireIn] = useState<ShortPeriod | null>(null);
@@ -20,15 +20,14 @@ export const QueryBox = ({
   const [placement, setPlacement] = useState<InnerPlacement | null>(null);
   const [category, setCategory] = useState<InnerCategory | null>(null);
 
-  const { ingredients } = useContext(AppContext);
 
   const createQuery = () => {
 
     switch (queryType) {
       case 'expiring-in':
         if (expireIn !== null) {
-          setInnerIngredients(
-            (ingredients ? ingredients : []).filter((ingredient: Ingredient) => {
+          setIngredients(
+            ingredients.filter((ingredient: Ingredient) => {
               const now: Date = new Date();
               if (ingredient.expirationDate !== null)
                 return (
@@ -42,8 +41,8 @@ export const QueryBox = ({
         break;
       case 'missing-data':
         if (missingData !== null) {
-          setInnerIngredients(
-            (ingredients ? ingredients : []).filter((ingredient: Ingredient) => {
+          setIngredients(
+            ingredients.filter((ingredient: Ingredient) => {
               if (missingData === 'any') {
                 return Object.values(ingredient).some(
                   (value) => value === null
@@ -57,12 +56,12 @@ export const QueryBox = ({
         break;
       case "added-within":
         // TODO: add 'added' field to ingredient object, for now, just pass all ingredients
-        setInnerIngredients((ingredients ? ingredients : []))
+        setIngredients(ingredients)
         break;
       case "same-category":
         if (category !== null) {
-          setInnerIngredients(
-            (ingredients ? ingredients : []).filter((ingredient: Ingredient) => {
+          setIngredients(
+            ingredients.filter((ingredient: Ingredient) => {
               if (category !== 'any') {
                 return ingredient.category === category;
               }
@@ -73,8 +72,8 @@ export const QueryBox = ({
         break;
       case "same-placement":
         if (placement !== null) {
-          setInnerIngredients(
-            (ingredients ? ingredients : []).filter((ingredient: Ingredient) => {
+          setIngredients(
+            ingredients.filter((ingredient: Ingredient) => {
               if (placement !== 'any') {
                 return ingredient.placement === placement;
               }
@@ -87,7 +86,7 @@ export const QueryBox = ({
   };
 
   const discardQuery = () => {
-    setInnerIngredients(ingredients ? ingredients : []);
+    setIngredients(ingredients);
     setQueryType(null);
     setExpireIn(null);
     setMissingData(null);

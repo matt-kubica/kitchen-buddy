@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Keyboard, Pressable, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
+import { Alert, Button, Keyboard, Pressable, SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
 import { Category, Confection, Ingredient, Placement } from '../types';
@@ -10,9 +10,6 @@ import { DateInput } from './DateInput';
 
 export const InputScreen = () => {
   const { addIngredient, ingredients } = useContext(AppContext);
-  const ingredientId = ingredients
-    ? ingredients[ingredients.length - 1].id + 1
-    : 1;
 
   const [ingredientName, setIngredientName] = useState<string>('');
   const [brandName, setBrandName] = useState<string | null>(null);
@@ -31,23 +28,35 @@ export const InputScreen = () => {
   };
 
   const submit = () => {
-    if (addIngredient) {
-      const ingredient: Ingredient = {
-        id: ingredientId,
-        name: ingredientName,
-        brand: brandName ? brandName : null,
-        category: category ? category : null,
-        placement: placement ? placement : null,
-        confection: confection ? confection : null,
-        expirationDate: expirationDate ? expirationDate : null,
-        ripenessStatus: null,
-        open: false,
-        frozen: false,
-        barcode: null,
-      };
-      addIngredient(ingredient);
-      setStatesToDefault();
-      Keyboard.dismiss();
+    let id: number = 1;
+    if (ingredients?.length) {
+      id = ingredients[ingredients.length - 1].id + 1
+    }
+
+    if (addIngredient !== undefined) {
+      if (ingredientName === '')
+        Alert.alert(
+          'Name not provided',
+          '',
+          [{ text: 'OK' }]
+        );
+      else {
+        addIngredient({
+          id: id,
+          name: ingredientName,
+          brand: brandName ? brandName : null,
+          category: category ? category : null,
+          placement: placement ? placement : null,
+          confection: confection ? confection : null,
+          expirationDate: expirationDate ? expirationDate : null,
+          ripenessStatus: null,
+          open: false,
+          frozen: false,
+          barcode: null,
+        });
+        setStatesToDefault();
+        Keyboard.dismiss();
+      }
     }
   };
 
@@ -91,8 +100,7 @@ export const InputScreen = () => {
         setDate={setExpirationDate}
         placeholder={'expiration date...'}
       />
-      <TouchableOpacity onPress={submit} style={styles.submitButton}
-      >
+      <TouchableOpacity onPress={submit} style={styles.submitButton}>
         <Text style={styles.submitButtonText}>ADD</Text>
       </TouchableOpacity>
     </SafeAreaView>

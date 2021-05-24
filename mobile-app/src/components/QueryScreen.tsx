@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from '../context';
-import { FlatList, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from '../styles';
 import { Ingredient } from '../types';
 import { Item } from './Item';
@@ -12,15 +12,27 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
   const [searchedName, setSearchedName] = useState<string>('');
   const { clearIngredients, ingredients } = useContext(AppContext);
 
-  const [innerIngredients, setInnerIngredients] = useState<Ingredient[]>(
+  const [filteredIngredients, setFilteredIngredients] = useState<Ingredient[]>(
     ingredients ? ingredients : []
   );
+
+  const deleteAll = () => {
+    if (ingredients?.length) {
+      Alert.alert('Delete all?', '', [
+        { text: 'Yes', onPress: () => clearIngredients ? clearIngredients() : null },
+        { text: 'No', onPress: () => null },
+      ]);
+    }
+  }
+
+  // update filtered (inner) ingredients if global ingredients have changed
+  useEffect(() => setFilteredIngredients(ingredients ? ingredients : []), [ingredients]);
 
   return (
     <View style={styles.container}>
       <QueryBox
-        innerIngredients={innerIngredients}
-        setInnerIngredients={setInnerIngredients}
+        ingredients={ingredients ? ingredients : []}
+        setIngredients={setFilteredIngredients}
       />
 
       <TextInput
@@ -32,7 +44,7 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
       />
 
       <FlatList
-        data={innerIngredients}
+        data={filteredIngredients}
         keyExtractor={(item: Ingredient) => `${item.id}`}
         renderItem={({ item }) =>
           item.name.toUpperCase().startsWith(searchedName.toUpperCase()) ? (
@@ -46,7 +58,9 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
         }
         style={{ width: '100%', marginTop: 16 }}
       />
-      {/*<Button title={'Clear Ingredients'} onPress={clearIngredients} />*/}
+      <TouchableOpacity onPress={deleteAll} style={styles.deleteAllButton}>
+        <Text style={styles.deleteAllButtonText}>DELETE ALL</Text>
+      </TouchableOpacity>
     </View>
   );
 };

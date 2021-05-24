@@ -1,15 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 4,
     flex: 1,
-    backgroundColor: Colors.lighter,
-    justifyContent: 'center',
+    backgroundColor: '#f7f7f7',
     alignItems: 'center',
     color: 'black',
-    padding: 8,
+    padding: 12,
     width: '100%',
   },
   input: {
@@ -19,7 +16,7 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: 'white',
     marginVertical: 4,
-    width: '80%',
+    width: '100%',
   },
   searchBar: {
     height: 42,

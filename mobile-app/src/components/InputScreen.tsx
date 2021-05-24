@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import {
   Alert,
   Keyboard,
-  SafeAreaView,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
@@ -69,7 +69,7 @@ export const InputScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <TextInput
           onChangeText={setIngredientName}
           value={ingredientName}
@@ -111,7 +111,7 @@ export const InputScreen = () => {
         <TouchableOpacity onPress={submit} style={styles.submitButton}>
           <Text style={styles.submitButtonText}>ADD</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };

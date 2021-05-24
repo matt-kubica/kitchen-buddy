@@ -3,7 +3,6 @@ import { AppContext } from '../context';
 import {
   Alert,
   FlatList,
-  Pressable,
   Text,
   TextInput,
   TouchableOpacity,

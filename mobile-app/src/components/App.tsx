@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { QueryScreenStack } from './QueryScreenStack';
 import { InputScreenStack } from './InputScreenStack';
 import { LogBox } from 'react-native';
-import { registerRootComponent } from "expo";
+import { registerRootComponent } from 'expo';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',

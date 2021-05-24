@@ -1,11 +1,11 @@
 import {
   Alert,
   Keyboard,
-  SafeAreaView,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import React, { useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -98,7 +98,7 @@ export const ItemDetails = ({
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <TextInput
           onChangeText={setIngredientName}
           value={ingredientName}
@@ -143,7 +143,7 @@ export const ItemDetails = ({
         <TouchableOpacity onPress={deleteItem} style={styles.deleteButton}>
           <Text style={styles.deleteButtonText}>DELETE</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };

@@ -119,7 +119,7 @@ export const QueryBox = ({
           items={queryTypeItems}
           value={queryType}
           style={innerPickerStyle}
-          placeholder={{ label: 'category...', value: null }}
+          placeholder={{ label: 'filter by...', value: null }}
         />
       </View>
       <View style={{ flex: 4, marginRight: 4 }}>

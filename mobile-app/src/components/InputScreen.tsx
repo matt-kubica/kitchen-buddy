@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import {
   Alert,
-  Button,
   Keyboard,
-  Pressable,
   SafeAreaView,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
@@ -49,7 +48,7 @@ export const InputScreen = () => {
       if (ingredientName === '')
         Alert.alert('Name not provided', '', [{ text: 'OK' }]);
       else {
-        const ingredient = {
+        addIngredient({
           id: id,
           name: ingredientName,
           brand: brandName ? brandName : null,
@@ -61,9 +60,7 @@ export const InputScreen = () => {
           open: false,
           frozen: false,
           barcode: null,
-        };
-        console.log(ingredient);
-        addIngredient(ingredient);
+        });
         setStatesToDefault();
         Keyboard.dismiss();
       }
@@ -71,48 +68,50 @@ export const InputScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        onChangeText={setIngredientName}
-        value={ingredientName}
-        style={styles.input}
-        placeholder={'ingredient name...'}
-      />
-      <TextInput
-        onChangeText={setBrandName}
-        value={brandName ? brandName : ''}
-        style={styles.input}
-        placeholder={'brand name...'}
-      />
-      <Picker
-        onValueChange={(value) => setCategory(value)}
-        items={categoryItems}
-        value={category}
-        style={pickerStyle}
-        placeholder={{ label: 'category...', value: null }}
-      />
-      <Picker
-        onValueChange={(value) => setPlacement(value)}
-        items={placementItems}
-        value={placement}
-        style={pickerStyle}
-        placeholder={{ label: 'placement...', value: null }}
-      />
-      <Picker
-        onValueChange={(value) => setConfection(value)}
-        items={confectionItems}
-        value={confection}
-        style={pickerStyle}
-        placeholder={{ label: 'confection...', value: null }}
-      />
-      <DateInput
-        date={expirationDate}
-        setDate={setExpirationDate}
-        placeholder={'expiration date...'}
-      />
-      <TouchableOpacity onPress={submit} style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>ADD</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={styles.container}>
+        <TextInput
+          onChangeText={setIngredientName}
+          value={ingredientName}
+          style={styles.input}
+          placeholder={'ingredient name...'}
+        />
+        <TextInput
+          onChangeText={setBrandName}
+          value={brandName ? brandName : ''}
+          style={styles.input}
+          placeholder={'brand name...'}
+        />
+        <Picker
+          onValueChange={(value) => setCategory(value)}
+          items={categoryItems}
+          value={category}
+          style={pickerStyle}
+          placeholder={{ label: 'category...', value: null }}
+        />
+        <Picker
+          onValueChange={(value) => setPlacement(value)}
+          items={placementItems}
+          value={placement}
+          style={pickerStyle}
+          placeholder={{ label: 'placement...', value: null }}
+        />
+        <Picker
+          onValueChange={(value) => setConfection(value)}
+          items={confectionItems}
+          value={confection}
+          style={pickerStyle}
+          placeholder={{ label: 'confection...', value: null }}
+        />
+        <DateInput
+          date={expirationDate}
+          setDate={setExpirationDate}
+          placeholder={'expiration date...'}
+        />
+        <TouchableOpacity onPress={submit} style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>ADD</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };

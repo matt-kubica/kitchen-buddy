@@ -18,7 +18,6 @@ export const DateInput = ({
 
   const onChange = (event: Event, selectedDate?: Date | undefined) => {
     const currentDate = selectedDate || date;
-    console.log(currentDate);
     setDate(currentDate);
   };
 
@@ -26,6 +25,12 @@ export const DateInput = ({
     setPickerVisibility(false);
     setDate(null);
   };
+
+  useEffect(
+    () =>
+      date === null ? setPickerVisibility(false) : setPickerVisibility(true),
+    [date]
+  );
 
   return (
     <Pressable

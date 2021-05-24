@@ -8,6 +8,11 @@ import { QueryScreen } from './src/components/QueryScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { QueryScreenStack } from './src/components/QueryScreenStack';
 import { InputScreenStack } from './src/components/InputScreenStack';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 const App = () => {
   const [ingredients, setIngredients] =

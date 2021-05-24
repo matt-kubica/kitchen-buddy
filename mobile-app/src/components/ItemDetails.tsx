@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -26,6 +27,7 @@ type ParamList = {
     setIngredients: (newIngredients: Ingredient[]) => void;
   };
 };
+
 export const ItemDetails = ({
   route,
   navigation,
@@ -95,51 +97,53 @@ export const ItemDetails = ({
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        onChangeText={setIngredientName}
-        value={ingredientName}
-        style={styles.input}
-        placeholder={'ingredient name...'}
-      />
-      <TextInput
-        onChangeText={setBrandName}
-        value={brandName ? brandName : ''}
-        style={styles.input}
-        placeholder={'brand name...'}
-      />
-      <Picker
-        onValueChange={(value) => setCategory(value)}
-        items={categoryItems}
-        value={category}
-        style={pickerStyle}
-        placeholder={{ label: 'category...', value: null }}
-      />
-      <Picker
-        onValueChange={(value) => setPlacement(value)}
-        items={placementItems}
-        value={placement}
-        style={pickerStyle}
-        placeholder={{ label: 'placement...', value: null }}
-      />
-      <Picker
-        onValueChange={(value) => setConfection(value)}
-        items={confectionItems}
-        value={confection}
-        style={pickerStyle}
-        placeholder={{ label: 'confection...', value: null }}
-      />
-      <DateInput
-        date={expirationDate}
-        setDate={setExpirationDate}
-        placeholder={'expiration date...'}
-      />
-      <TouchableOpacity onPress={submit} style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>SUBMIT</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={deleteItem} style={styles.deleteButton}>
-        <Text style={styles.deleteButtonText}>DELETE</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={styles.container}>
+        <TextInput
+          onChangeText={setIngredientName}
+          value={ingredientName}
+          style={styles.input}
+          placeholder={'ingredient name...'}
+        />
+        <TextInput
+          onChangeText={setBrandName}
+          value={brandName ? brandName : ''}
+          style={styles.input}
+          placeholder={'brand name...'}
+        />
+        <Picker
+          onValueChange={(value) => setCategory(value)}
+          items={categoryItems}
+          value={category}
+          style={pickerStyle}
+          placeholder={{ label: 'category...', value: null }}
+        />
+        <Picker
+          onValueChange={(value) => setPlacement(value)}
+          items={placementItems}
+          value={placement}
+          style={pickerStyle}
+          placeholder={{ label: 'placement...', value: null }}
+        />
+        <Picker
+          onValueChange={(value) => setConfection(value)}
+          items={confectionItems}
+          value={confection}
+          style={pickerStyle}
+          placeholder={{ label: 'confection...', value: null }}
+        />
+        <DateInput
+          date={expirationDate}
+          setDate={setExpirationDate}
+          placeholder={'expiration date...'}
+        />
+        <TouchableOpacity onPress={submit} style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>SUBMIT</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={deleteItem} style={styles.deleteButton}>
+          <Text style={styles.deleteButtonText}>DELETE</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };

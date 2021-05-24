@@ -55,6 +55,7 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
         style={styles.searchBar}
         placeholder={'filter by name...'}
         placeholderTextColor={'#c4c4c4'}
+        clearButtonMode={'while-editing'}
       />
 
       <FlatList

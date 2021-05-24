@@ -4,6 +4,7 @@ import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
 import { Category, Confection, Ingredient, Placement } from '../types';
 import { default as Picker } from 'react-native-picker-select';
+import { DateInput } from './DateInput';
 
 type CategoryItem = { label: string; value: Category };
 const categoryItems: CategoryItem[] = [
@@ -41,6 +42,7 @@ export const InputScreen = () => {
   const [category, setCategory] = useState<Category | null>(null);
   const [placement, setPlacement] = useState<Placement | null>(null);
   const [confection, setConfection] = useState<Confection | null>(null);
+  const [expirationDate, setExpirationDate] = useState<Date | null>(null);
 
   const setStatesToDefault = () => {
     setIngredientName('');
@@ -48,6 +50,7 @@ export const InputScreen = () => {
     setCategory(null);
     setPlacement(null);
     setConfection(null);
+    setExpirationDate(null);
   };
 
   const submit = () => {
@@ -59,7 +62,7 @@ export const InputScreen = () => {
         category: category ? category : null,
         placement: placement ? placement : null,
         confection: confection ? confection : null,
-        expirationDate: null,
+        expirationDate: expirationDate ? expirationDate : null,
         ripenessStatus: null,
         open: false,
         frozen: false,
@@ -73,7 +76,7 @@ export const InputScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ color: 'black' }}>Input Screen</Text>
+      <Text style={styles.title}>Input Screen</Text>
       <TextInput
         onChangeText={setIngredientName}
         value={ingredientName}
@@ -106,6 +109,11 @@ export const InputScreen = () => {
         value={confection}
         style={pickerStyle}
         placeholder={{ label: 'confection...', value: null }}
+      />
+      <DateInput
+        date={expirationDate}
+        setDate={setExpirationDate}
+        placeholder={'expiration date...'}
       />
       <Button title={'Add'} onPress={submit} />
     </SafeAreaView>

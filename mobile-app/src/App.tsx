@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { dummyIngredients, Ingredient } from './src/types';
-import { AppContext } from './src/context';
-import { InputScreen } from './src/components/InputScreen';
-import { QueryScreen } from './src/components/QueryScreen';
+import { dummyIngredients, Ingredient } from './types';
+import { AppContext } from './context';
+import { InputScreen } from './components/InputScreen';
+import { QueryScreen } from './components/QueryScreen';
 import { Ionicons } from '@expo/vector-icons';
-import { QueryScreenStack } from './src/components/QueryScreenStack';
-import { InputScreenStack } from './src/components/InputScreenStack';
+import { QueryScreenStack } from './components/QueryScreenStack';
+import { InputScreenStack } from './components/InputScreenStack';
 import { LogBox } from 'react-native';
+import { registerRootComponent } from "expo";
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -66,4 +67,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default registerRootComponent(App);

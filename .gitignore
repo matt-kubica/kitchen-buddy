@@ -522,3 +522,4 @@ npm-debug.*
 
 */.expo
 */.expo-shared
+mobile-app/.expo/settings.json

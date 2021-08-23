@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MainInput } from '../components/MainInput';
+import { MainInputScreen } from './MainInputScreen';
 
-export const InputScreenStack = () => {
+export const MainInputScreenStack = () => {
   const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={'InputScreen'}
-        component={MainInput}
+        name={'MainInputScreen'}
+        component={MainInputScreen}
         options={{
           title: 'Input Screen',
           headerTitleAlign: 'left',

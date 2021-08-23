@@ -3,10 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { dummyIngredients, Ingredient } from '../types';
 import { AppContext } from '../context';
-import { QueryScreen } from '../screens/QueryScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { QueryScreenStack } from '../screens/QueryScreenStack';
-import { InputScreenStack } from '../screens/InputScreenStack';
+import { MainInputScreenStack } from '../screens/MainInputScreenStack';
 import { LogBox } from 'react-native';
 import { registerRootComponent } from 'expo';
 
@@ -44,11 +43,11 @@ const App = () => {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if (route.name === 'InputScreen') {
+              if (route.name === 'MainInputScreenStack') {
                 iconName = focused
                   ? 'ios-add-circle'
                   : 'ios-add-circle-outline';
-              } else if (route.name === 'QueryScreen') {
+              } else if (route.name === 'QueryScreenStack') {
                 iconName = focused
                   ? 'ios-search-circle'
                   : 'ios-search-circle-outline';
@@ -58,8 +57,8 @@ const App = () => {
             },
           })}
         >
-          <Tab.Screen name='InputScreen' component={InputScreenStack} />
-          <Tab.Screen name='QueryScreen' component={QueryScreenStack} />
+          <Tab.Screen name='MainInputScreenStack' component={MainInputScreenStack} />
+          <Tab.Screen name='QueryScreenStack' component={QueryScreenStack} />
         </Tab.Navigator>
       </NavigationContainer>
     </AppContext.Provider>

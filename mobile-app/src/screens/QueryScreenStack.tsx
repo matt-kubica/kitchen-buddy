@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { QueryScreen } from './QueryScreen';
-import { ItemScreen } from "./ItemScreen";
+import { ItemDetailsScreen } from "./ItemDetailsScreen";
 
 export const QueryScreenStack = () => {
   const Stack = createStackNavigator();
@@ -21,8 +21,8 @@ export const QueryScreenStack = () => {
         }}
       />
       <Stack.Screen
-        name={'ItemScreen'}
-        component={ItemScreen}
+        name={'ItemDetailsScreen'}
+        component={ItemDetailsScreen}
         options={{
           title: 'Item Details',
           headerTitleAlign: 'left',

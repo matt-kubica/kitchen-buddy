@@ -3,16 +3,16 @@ import { AppContext } from '../context';
 import {
   Alert,
   FlatList,
-  Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { styles } from '../styles';
 import { Ingredient } from '../types';
-import { Item } from '../components/Item';
+import { ItemBox } from '../components/ItemBox';
 import { QueryBox } from '../components/QueryBox';
+import { DeleteAllBtn } from "../components/DeleteAllBtn";
 import { StackScreenProps } from '@react-navigation/stack';
+import { SearchBar } from "../components/SearchBar";
 
 export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
   const [searchedName, setSearchedName] = useState<string>('');
@@ -47,16 +47,7 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
         ingredients={ingredients ? ingredients : []}
         setIngredients={setFilteredIngredients}
       />
-
-      <TextInput
-        onChangeText={setSearchedName}
-        value={searchedName}
-        style={styles.searchBar}
-        placeholder={'filter by name...'}
-        placeholderTextColor={'#c4c4c4'}
-        clearButtonMode={'while-editing'}
-      />
-
+      <SearchBar name={searchedName} setName={setSearchedName} />
       <FlatList
         data={filteredIngredients}
         keyExtractor={(item: Ingredient) => `${item.id}`}
@@ -64,14 +55,14 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
           item.name.toUpperCase().startsWith(searchedName.toUpperCase()) ? (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('ItemScreen', {
+                navigation.navigate('ItemDetailsScreen', {
                   ingredient: item,
                   ingredients: ingredients,
                   setIngredients: setIngredients,
                 })
               }
             >
-              <Item ingredient={item} />
+              <ItemBox ingredient={item} />
             </TouchableOpacity>
           ) : (
             <View />
@@ -79,9 +70,7 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
         }
         style={{ width: '100%', marginTop: 16 }}
       />
-      <TouchableOpacity onPress={deleteAll} style={styles.deleteButton}>
-        <Text style={styles.deleteButtonText}>DELETE ALL</Text>
-      </TouchableOpacity>
+      <DeleteAllBtn deleteAll={deleteAll} />
     </View>
   );
 };

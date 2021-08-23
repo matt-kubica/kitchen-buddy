@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { RouteProp } from '@react-navigation/native';
 import { Category, Confection, Ingredient, Placement } from '../types';
 import { pickerStyle, styles } from '../styles';
 import { default as Picker } from 'react-native-picker-select';
@@ -18,25 +17,16 @@ import {
   placementItems,
 } from '../picker-items/ingredient';
 import { DateInput } from './DateInput';
-import { StackNavigationProp } from '@react-navigation/stack';
 
-type ParamList = {
-  ItemDetails: {
-    ingredient: Ingredient;
-    ingredients: Ingredient[];
-    setIngredients: (newIngredients: Ingredient[]) => void;
-  };
-};
 
 export const ItemDetails = ({
-  route,
-  navigation,
-}: {
-  route: RouteProp<ParamList, 'ItemDetails'>;
-  navigation: StackNavigationProp<ParamList>;
+  ingredient, ingredients, setIngredients, goBack
+} : {
+  ingredient: Ingredient;
+  ingredients: Ingredient[];
+  setIngredients: (ingredients: Ingredient[]) => void;
+  goBack: () => void;
 }) => {
-  const { ingredient, ingredients, setIngredients } = route.params;
-
   const [ingredientName, setIngredientName] = useState<string>(ingredient.name);
   const [brandName, setBrandName] = useState<string | null>(ingredient.brand);
   const [category, setCategory] = useState<Category | null>(
@@ -76,7 +66,7 @@ export const ItemDetails = ({
           )
         );
         Keyboard.dismiss();
-        navigation.goBack();
+        goBack();
       }
     }
   };
@@ -89,7 +79,7 @@ export const ItemDetails = ({
           setIngredients(
             ingredients.filter((i: Ingredient) => i.id !== ingredient.id)
           );
-          navigation.goBack();
+          goBack();
         },
       },
       { text: 'No', onPress: () => null },

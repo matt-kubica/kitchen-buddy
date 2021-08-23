@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { AppContext } from '../context';
 import { pickerStyle, styles } from '../styles';
-import { Category, Confection, Ingredient, Placement } from '../types';
+import { Category, Confection, Placement } from '../types';
 import { default as Picker } from 'react-native-picker-select';
 import { DateInput } from './DateInput';
 import {
@@ -19,7 +19,7 @@ import {
   placementItems,
 } from '../picker-items/ingredient';
 
-export const InputScreen = () => {
+export const MainInput = () => {
   const { addIngredient, ingredients } = useContext(AppContext);
 
   const [ingredientName, setIngredientName] = useState<string>('');

@@ -3,11 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { dummyIngredients, Ingredient } from '../types';
 import { AppContext } from '../context';
-import { InputScreen } from './InputScreen';
-import { QueryScreen } from './QueryScreen';
+import { QueryScreen } from '../screens/QueryScreen';
 import { Ionicons } from '@expo/vector-icons';
-import { QueryScreenStack } from './QueryScreenStack';
-import { InputScreenStack } from './InputScreenStack';
+import { QueryScreenStack } from '../screens/QueryScreenStack';
+import { InputScreenStack } from '../screens/InputScreenStack';
 import { LogBox } from 'react-native';
 import { registerRootComponent } from 'expo';
 

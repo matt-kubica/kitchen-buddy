@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import { styles } from '../styles';
 import { Ingredient } from '../types';
-import { Item } from './Item';
-import { QueryBox } from './QueryBox';
+import { Item } from '../components/Item';
+import { QueryBox } from '../components/QueryBox';
 import { StackScreenProps } from '@react-navigation/stack';
 
 export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
@@ -64,7 +64,7 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
           item.name.toUpperCase().startsWith(searchedName.toUpperCase()) ? (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('ItemDetails', {
+                navigation.navigate('ItemScreen', {
                   ingredient: item,
                   ingredients: ingredients,
                   setIngredients: setIngredients,

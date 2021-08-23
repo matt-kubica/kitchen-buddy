@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { InputScreen } from './InputScreen';
+import { MainInput } from '../components/MainInput';
 
 export const InputScreenStack = () => {
   const Stack = createStackNavigator();
@@ -9,7 +9,7 @@ export const InputScreenStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         name={'InputScreen'}
-        component={InputScreen}
+        component={MainInput}
         options={{
           title: 'Input Screen',
           headerTitleAlign: 'left',

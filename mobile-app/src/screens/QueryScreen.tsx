@@ -1,18 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context';
-import {
-  Alert,
-  FlatList,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, FlatList, TouchableOpacity, View } from 'react-native';
 import { styles } from '../styles';
 import { Ingredient } from '../types';
 import { ItemBox } from '../components/ItemBox';
 import { QueryBox } from '../components/QueryBox';
-import { DeleteAllBtn } from "../components/DeleteAllBtn";
+import { DeleteAllBtn } from '../components/DeleteAllBtn';
 import { StackScreenProps } from '@react-navigation/stack';
-import { SearchBar } from "../components/SearchBar";
+import { SearchBar } from '../components/SearchBar';
 
 export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
   const [searchedName, setSearchedName] = useState<string>('');

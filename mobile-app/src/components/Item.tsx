@@ -4,7 +4,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React  from 'react';
+import React from 'react';
 import { Ingredient } from '../types';
 import { pickerStyle, styles } from '../styles';
 import { default as Picker } from 'react-native-picker-select';
@@ -15,10 +15,10 @@ import {
 } from '../picker-items/ingredient';
 import { DateInput } from './DateInput';
 
-
 export const Item = ({
-  ingredient, setIngredient
-} : {
+  ingredient,
+  setIngredient,
+}: {
   ingredient: Ingredient;
   setIngredient: (ingredient: Ingredient) => void;
 }) => {
@@ -38,21 +38,27 @@ export const Item = ({
           placeholder={'brand name...'}
         />
         <Picker
-          onValueChange={(category) => setIngredient({ ...ingredient, category })}
+          onValueChange={(category) =>
+            setIngredient({ ...ingredient, category })
+          }
           items={categoryItems}
           value={ingredient.category}
           style={pickerStyle}
           placeholder={{ label: 'category...', value: null }}
         />
         <Picker
-          onValueChange={(placement) => setIngredient({ ...ingredient, placement })}
+          onValueChange={(placement) =>
+            setIngredient({ ...ingredient, placement })
+          }
           items={placementItems}
           value={ingredient.placement}
           style={pickerStyle}
           placeholder={{ label: 'placement...', value: null }}
         />
         <Picker
-          onValueChange={(confection) => setIngredient({ ...ingredient, confection })}
+          onValueChange={(confection) =>
+            setIngredient({ ...ingredient, confection })
+          }
           items={confectionItems}
           value={ingredient.confection}
           style={pickerStyle}
@@ -60,7 +66,9 @@ export const Item = ({
         />
         <DateInput
           date={ingredient.expirationDate}
-          setDate={(expirationDate) => setIngredient({ ...ingredient, expirationDate })}
+          setDate={(expirationDate) =>
+            setIngredient({ ...ingredient, expirationDate })
+          }
           placeholder={'expiration date...'}
         />
       </View>

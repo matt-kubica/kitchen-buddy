@@ -1,12 +1,14 @@
-import { styles } from "../styles";
-import { TextInput } from "react-native";
-import React from "react";
+import { styles } from '../styles';
+import { TextInput } from 'react-native';
+import React from 'react';
 
-export const SearchBar = ({ name, setName } : {
+export const SearchBar = ({
+  name,
+  setName,
+}: {
   name: string;
   setName: (name: string) => void;
 }) => {
-
   return (
     <TextInput
       onChangeText={setName}

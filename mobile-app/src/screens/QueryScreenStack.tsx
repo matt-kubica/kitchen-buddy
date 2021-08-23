@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { QueryScreen } from './QueryScreen';
-import { ItemDetailsScreen } from "./ItemDetailsScreen";
+import { ItemDetailsScreen } from './ItemDetailsScreen';
 
 export const QueryScreenStack = () => {
   const Stack = createStackNavigator();

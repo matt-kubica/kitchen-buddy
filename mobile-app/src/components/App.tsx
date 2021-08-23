@@ -57,7 +57,10 @@ const App = () => {
             },
           })}
         >
-          <Tab.Screen name='MainInputScreenStack' component={MainInputScreenStack} />
+          <Tab.Screen
+            name='MainInputScreenStack'
+            component={MainInputScreenStack}
+          />
           <Tab.Screen name='QueryScreenStack' component={QueryScreenStack} />
         </Tab.Navigator>
       </NavigationContainer>

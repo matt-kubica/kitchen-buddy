@@ -12,7 +12,11 @@ type ParamList = {
   ItemDetails: {
     ingredient: Ingredient;
     ingredients: Ingredient[];
-    setIngredients: (newIngredients: Ingredient[]) => void;
+    updateIngredient: (
+      oldIngredient: Ingredient,
+      newIngredient: Ingredient
+    ) => void;
+    deleteIngredient: (ingredient: Ingredient) => void;
   };
 };
 
@@ -23,12 +27,14 @@ export const ItemDetailsScreen = ({
   route: RouteProp<ParamList, 'ItemDetails'>;
   navigation: StackNavigationProp<ParamList>;
 }) => {
-  const { ingredient, ingredients, setIngredients } = route.params;
+  const { ingredient, updateIngredient, deleteIngredient } =
+    route.params;
   const [innerIngredient, setInnerIngredient] =
     useState<Ingredient>(ingredient);
 
   const submit = () => {
-    if (setIngredients !== undefined) {
+    console.log('Submit clicked!');
+    if (updateIngredient !== undefined) {
       if (innerIngredient.name === '')
         Alert.alert('Name not provided', '', [{ text: 'OK' }]);
       else {
@@ -51,11 +57,7 @@ export const ItemDetailsScreen = ({
           frozen: false,
           barcode: null,
         };
-        setIngredients(
-          ingredients.map((i: Ingredient) =>
-            i.id === updatedIngredient.id ? updatedIngredient : i
-          )
-        );
+        updateIngredient(ingredient, updatedIngredient);
         Keyboard.dismiss();
         navigation.goBack();
       }
@@ -67,9 +69,7 @@ export const ItemDetailsScreen = ({
       {
         text: 'Yes',
         onPress: () => {
-          setIngredients(
-            ingredients.filter((i: Ingredient) => i.id !== ingredient.id)
-          );
+          deleteIngredient(ingredient);
           navigation.goBack();
         },
       },

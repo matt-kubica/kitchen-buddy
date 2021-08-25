@@ -11,7 +11,7 @@ import { SearchBar } from '../components/SearchBar';
 
 export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
   const [searchedName, setSearchedName] = useState<string>('');
-  const { clearIngredients, ingredients, setIngredients } =
+  const { clearIngredients, ingredients, updateIngredient, deleteIngredient } =
     useContext(AppContext);
 
   const [filteredIngredients, setFilteredIngredients] = useState<Ingredient[]>(
@@ -53,7 +53,8 @@ export const QueryScreen = ({ navigation }: StackScreenProps<any>) => {
                 navigation.navigate('ItemDetailsScreen', {
                   ingredient: item,
                   ingredients: ingredients,
-                  setIngredients: setIngredients,
+                  updateIngredient: updateIngredient,
+                  deleteIngredient: deleteIngredient,
                 })
               }
             >

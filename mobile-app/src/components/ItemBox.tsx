@@ -14,6 +14,7 @@ export const ItemBox = ({ ingredient }: { ingredient: Ingredient }) => {
       <Text>category: {returnDashIfNull(ingredient.category)}</Text>
       <Text>placement: {returnDashIfNull(ingredient.placement)}</Text>
       <Text>confection: {returnDashIfNull(ingredient.confection)}</Text>
+      {/*<Text>expiration date: {returnDashIfNull(ingredient.expirationDate)}</Text>*/}
       <Text>
         expiration date:{' '}
         {ingredient.expirationDate

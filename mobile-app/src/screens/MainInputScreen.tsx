@@ -7,7 +7,7 @@ import { Item } from '../components/Item';
 import { SubmitItemBtn } from '../components/SubmitItemBtn';
 
 const blankIngredient: Ingredient = {
-  id: 0,
+  id: '',
   name: '',
   brand: null,
   category: null,
@@ -21,22 +21,17 @@ const blankIngredient: Ingredient = {
 };
 
 export const MainInputScreen = () => {
-  const { addIngredient, ingredients } = useContext(AppContext);
+  const { addIngredient } = useContext(AppContext);
   const [innerIngredient, setInnerIngredient] =
     useState<Ingredient>(blankIngredient);
 
   const submit = () => {
-    let id: number = 1;
-    if (ingredients?.length) {
-      id = ingredients[ingredients.length - 1].id + 1;
-    }
-
     if (addIngredient !== undefined) {
       if (innerIngredient.name === '')
         Alert.alert('Name not provided', '', [{ text: 'OK' }]);
       else {
-        addIngredient({
-          id: id,
+        const newIngredient = {
+          id: 'temporary-id',
           name: innerIngredient.name,
           brand: innerIngredient.brand ? innerIngredient.brand : null,
           category: innerIngredient.category ? innerIngredient.category : null,
@@ -53,7 +48,8 @@ export const MainInputScreen = () => {
           open: false,
           frozen: false,
           barcode: null,
-        });
+        };
+        addIngredient(newIngredient);
         setInnerIngredient(blankIngredient);
         Keyboard.dismiss();
       }

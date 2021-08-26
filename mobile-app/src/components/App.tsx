@@ -6,7 +6,7 @@ import { AppContext } from '../context';
 import { Ionicons } from '@expo/vector-icons';
 import { QueryScreenStack } from '../screens/QueryScreenStack';
 import { MainInputScreenStack } from '../screens/MainInputScreenStack';
-import { LogBox } from 'react-native';
+import { Alert, LogBox } from 'react-native';
 import { registerRootComponent } from 'expo';
 import http from '../http-common';
 
@@ -37,16 +37,29 @@ const App = () => {
         res.data.expirationDate = res.data.expirationDate
           ? new Date(Date.parse(res.data.expirationDate))
           : null;
+        console.log(res.data);
         setIngredients([...ingredients, res.data]);
       })
-      .catch(console.error);
+      .catch(() =>
+        Alert.alert(
+          'Network Error',
+          'Check internet connection, application cannot keep persistence',
+          [{ text: 'OK' }]
+        )
+      );
   };
 
   const handleClearIngredients = () => {
     http
       .delete('/ingredients')
       .then((res) => setIngredients([]))
-      .catch(console.error);
+      .catch(() =>
+        Alert.alert(
+          'Network Error',
+          'Check internet connection, application cannot keep persistence',
+          [{ text: 'OK' }]
+        )
+      );
   };
 
   const handleDeleteIngredient = (ingredient: Ingredient) => {
@@ -55,7 +68,13 @@ const App = () => {
       .then((res) =>
         setIngredients(ingredients.filter((i) => i.id !== ingredient.id))
       )
-      .catch(console.error);
+      .catch(() =>
+        Alert.alert(
+          'Network Error',
+          'Check internet connection, application cannot keep persistence',
+          [{ text: 'OK' }]
+        )
+      );
   };
 
   const handleAppendIngredients = (newIngredients: Ingredient[]) => {
@@ -73,7 +92,13 @@ const App = () => {
           ingredients.map((i) => (i.id == oldIngredient.id ? newIngredient : i))
         );
       })
-      .catch(console.error);
+      .catch(() =>
+        Alert.alert(
+          'Network Error',
+          'Check internet connection, application cannot keep persistence',
+          [{ text: 'OK' }]
+        )
+      );
   };
 
   useEffect(() => {
@@ -101,7 +126,13 @@ const App = () => {
           })
         );
       })
-      .catch(console.error);
+      .catch(() =>
+        Alert.alert(
+          'Network Error',
+          'Check internet connection, application cannot keep persistence',
+          [{ text: 'OK' }]
+        )
+      );
   }, []);
 
   const Tab = createBottomTabNavigator();

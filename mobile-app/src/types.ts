@@ -1,5 +1,3 @@
-export const BACKEND_HOST = '192.168.1.121';
-
 export type AppContextProps = {
   addIngredient: (ingredient: Ingredient) => void;
   updateIngredient: (

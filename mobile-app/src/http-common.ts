@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { BACKEND_HOST } from './types';
+
+const BACKEND_HOST = '192.168.1.121';
 
 export default axios.create({
   baseURL: `http://${BACKEND_HOST}:8000`,

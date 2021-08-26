@@ -1,7 +1,7 @@
-# Requirements
+## Requirements
 Requirements needed to launch expo project are described [here](https://docs.expo.io/get-started/installation/).
 
-# Launching
+## Launching
 
 Type in terminal:
 ```bash

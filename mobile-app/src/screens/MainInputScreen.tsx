@@ -5,6 +5,7 @@ import { styles } from '../styles';
 import { Ingredient } from '../types';
 import { Item } from '../components/Item';
 import { SubmitItemBtn } from '../components/SubmitItemBtn';
+import { determineExpirationDate, determineRipenessStatus } from '../utils';
 
 const blankIngredient: Ingredient = {
   id: '',
@@ -30,7 +31,7 @@ export const MainInputScreen = () => {
       if (innerIngredient.name === '')
         Alert.alert('Name not provided', '', [{ text: 'OK' }]);
       else {
-        const newIngredient = {
+        const newIngredient: Ingredient = {
           id: 'temporary-id',
           name: innerIngredient.name,
           brand: innerIngredient.brand ? innerIngredient.brand : null,
@@ -41,14 +42,10 @@ export const MainInputScreen = () => {
           confection: innerIngredient.confection
             ? innerIngredient.confection
             : null,
-          expirationDate: innerIngredient.expirationDate
-            ? innerIngredient.expirationDate
-            : null,
-          ripenessStatus: innerIngredient.ripenessStatus
-            ? innerIngredient.ripenessStatus
-            : null,
-          open: false,
-          frozen: false,
+          expirationDate: determineExpirationDate(innerIngredient),
+          ripenessStatus: determineRipenessStatus(innerIngredient),
+          open: innerIngredient.open,
+          frozen: innerIngredient.frozen,
           barcode: null,
         };
         addIngredient(newIngredient);

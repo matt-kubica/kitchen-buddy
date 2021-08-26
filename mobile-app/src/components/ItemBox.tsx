@@ -1,4 +1,4 @@
-import { Ingredient, Ripeness, RipenessStatus } from '../types';
+import { Ingredient, RipenessStatus } from '../types';
 import { Text, View } from 'react-native';
 import { styles } from '../styles';
 import React from 'react';
@@ -8,6 +8,7 @@ const formatDate = (prop: Date | null) =>
   prop ? new Date(prop).toDateString() : '-';
 const formatRipeness = (prop: RipenessStatus | null) =>
   prop ? `${prop.ripeness} on ${formatDate(prop.date)}` : '-';
+const formatBoolean = (prop: boolean) => (prop ? 'true' : 'false');
 
 export const ItemBox = ({ ingredient }: { ingredient: Ingredient }) => {
   return (
@@ -19,6 +20,8 @@ export const ItemBox = ({ ingredient }: { ingredient: Ingredient }) => {
       <Text>confection: {returnDashIfNull(ingredient.confection)}</Text>
       <Text>expiration date: {formatDate(ingredient.expirationDate)}</Text>
       <Text>ripeness: {formatRipeness(ingredient.ripenessStatus)}</Text>
+      <Text>open: {formatBoolean(ingredient.open)}</Text>
+      <Text>frozen: {formatBoolean(ingredient.frozen)}</Text>
     </View>
   );
 };

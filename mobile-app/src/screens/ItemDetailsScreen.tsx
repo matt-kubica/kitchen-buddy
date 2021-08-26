@@ -27,13 +27,11 @@ export const ItemDetailsScreen = ({
   route: RouteProp<ParamList, 'ItemDetails'>;
   navigation: StackNavigationProp<ParamList>;
 }) => {
-  const { ingredient, updateIngredient, deleteIngredient } =
-    route.params;
+  const { ingredient, updateIngredient, deleteIngredient } = route.params;
   const [innerIngredient, setInnerIngredient] =
     useState<Ingredient>(ingredient);
 
   const submit = () => {
-    console.log('Submit clicked!');
     if (updateIngredient !== undefined) {
       if (innerIngredient.name === '')
         Alert.alert('Name not provided', '', [{ text: 'OK' }]);

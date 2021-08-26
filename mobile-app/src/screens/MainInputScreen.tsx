@@ -44,7 +44,9 @@ export const MainInputScreen = () => {
           expirationDate: innerIngredient.expirationDate
             ? innerIngredient.expirationDate
             : null,
-          ripenessStatus: null,
+          ripenessStatus: innerIngredient.ripenessStatus
+            ? innerIngredient.ripenessStatus
+            : null,
           open: false,
           frozen: false,
           barcode: null,

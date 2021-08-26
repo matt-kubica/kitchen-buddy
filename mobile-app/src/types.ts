@@ -27,8 +27,8 @@ export type Confection = 'fresh' | 'canned' | 'frozen' | 'cured';
 export type Ripeness = 'green' | 'ripe' | 'advanced' | 'overripe';
 
 export type RipenessStatus = {
-  ripeness: Ripeness;
-  date: Date;
+  ripeness: Ripeness | null;
+  date: Date | null;
 };
 
 export type Ingredient = {

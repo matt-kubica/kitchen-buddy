@@ -66,7 +66,6 @@ const App = () => {
     oldIngredient: Ingredient,
     newIngredient: Ingredient
   ) => {
-    console.log('Handle update called');
     http
       .put(`/ingredients/${oldIngredient.id}`, newIngredient)
       .then((res) => {

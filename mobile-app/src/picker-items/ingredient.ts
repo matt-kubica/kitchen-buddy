@@ -1,4 +1,4 @@
-import { Category, Confection, Placement } from '../types';
+import { Category, Confection, Placement, Ripeness } from '../types';
 
 export type CategoryItem = { label: string; value: Category };
 export const categoryItems: CategoryItem[] = [
@@ -23,4 +23,12 @@ export const confectionItems: ConfectionItem[] = [
   { label: 'canned', value: 'canned' },
   { label: 'frozen', value: 'frozen' },
   { label: 'cured', value: 'cured' },
+];
+
+export type RipenessItem = { label: string; value: Ripeness };
+export const ripenessItems: RipenessItem[] = [
+  { label: 'green', value: 'green' },
+  { label: 'ripe', value: 'ripe' },
+  { label: 'advanced', value: 'advanced' },
+  { label: 'overripe', value: 'overripe' },
 ];

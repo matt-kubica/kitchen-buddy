@@ -1,26 +1,24 @@
-import { Ingredient } from '../types';
+import { Ingredient, Ripeness, RipenessStatus } from '../types';
 import { Text, View } from 'react-native';
 import { styles } from '../styles';
 import React from 'react';
 
 const returnDashIfNull = (prop: any) => (prop ? prop : '-');
+const formatDate = (prop: Date | null) =>
+  prop ? new Date(prop).toDateString() : '-';
+const formatRipeness = (prop: RipenessStatus | null) =>
+  prop ? `${prop.ripeness} on ${formatDate(prop.date)}` : '-';
 
 export const ItemBox = ({ ingredient }: { ingredient: Ingredient }) => {
   return (
     <View style={styles.item}>
-      <Text>id: {ingredient.id}</Text>
       <Text>name: {ingredient.name}</Text>
       <Text>brand: {returnDashIfNull(ingredient.brand)}</Text>
       <Text>category: {returnDashIfNull(ingredient.category)}</Text>
       <Text>placement: {returnDashIfNull(ingredient.placement)}</Text>
       <Text>confection: {returnDashIfNull(ingredient.confection)}</Text>
-      {/*<Text>expiration date: {returnDashIfNull(ingredient.expirationDate)}</Text>*/}
-      <Text>
-        expiration date:{' '}
-        {ingredient.expirationDate
-          ? ingredient.expirationDate.toDateString()
-          : '-'}
-      </Text>
+      <Text>expiration date: {formatDate(ingredient.expirationDate)}</Text>
+      <Text>ripeness: {formatRipeness(ingredient.ripenessStatus)}</Text>
     </View>
   );
 };

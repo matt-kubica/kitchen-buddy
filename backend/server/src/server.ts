@@ -40,6 +40,7 @@ app.post('/ingredients', validate(ingredientValidations), (req: Request, res: Re
         const completeIngredient = {
             id: result.insertedId,
             name: ingredient.name,
+            brand: ingredient.brand,
             category: ingredient.category,
             placement: ingredient.placement,
             confection: ingredient.confection,

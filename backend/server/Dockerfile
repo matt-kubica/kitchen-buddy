@@ -1,8 +1,6 @@
-USER node
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-ENV PATH=$PATH:/home/node/.npm-global/bin
+FROM node
 
-WORKDIR /home/node
+WORKDIR /usr/src/app
 
 COPY package.json .
 

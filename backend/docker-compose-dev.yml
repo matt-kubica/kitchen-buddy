@@ -15,7 +15,7 @@ services:
 
 
   mongo:
-    image: mongo
+    image: mongo:4.4.6
     container_name: kitchen-buddy-mongo
     restart: always
     ports:

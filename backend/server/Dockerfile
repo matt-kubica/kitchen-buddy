@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
+RUN yarn global add typescript
 RUN yarn
 
 COPY . .

@@ -2,11 +2,13 @@ FROM node:14
 
 WORKDIR /usr/src/app
 
-COPY package.json .
+COPY . .
 
 RUN yarn global add typescript
-RUN yarn
+RUN yarn add dotenv
+RUN yarn add express
+RUN yarn add express-validator
+RUN yarn add mongodb
 
-COPY . .
 
 EXPOSE 8000

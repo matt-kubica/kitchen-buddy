@@ -1,12 +1,4 @@
-FROM node
-
-# ARG uid=1000
-# ARG user=username
-# RUN set -x ; \
-#   addgroup -g $uid -S $user ; \
-#   adduser -u $uid -D -S -G $user $user \
-#   && exit 0 ; exit 1
-# RUN echo $user' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+FROM node:14
 
 WORKDIR /usr/src/app
 
